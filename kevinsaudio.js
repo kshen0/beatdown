@@ -24,26 +24,26 @@ BufferLoader.prototype.loadBuffer = function(url, index) {
   var loader = this;
 
   request.onload = function() {
-    // Asynchronously decode the audio file data in request.response
-    loader.context.decodeAudioData(
-      request.response,
-      function(buffer) {
-        if (!buffer) {
-          alert('error decoding file data: ' + url);
-          return;
-        }
-        loader.bufferList[index] = buffer;
-        if (++loader.loadCount == loader.urlList.length)
-          loader.onload(loader.bufferList);
-      },
-      function(error) {
-        console.error('decodeAudioData error', error);
-      }
-    );
+	// Asynchronously decode the audio file data in request.response
+	loader.context.decodeAudioData(
+	  request.response,
+	  function(buffer) {
+		if (!buffer) {
+		  alert('error decoding file data: ' + url);
+		  return;
+		}
+		loader.bufferList[index] = buffer;
+		if (++loader.loadCount == loader.urlList.length)
+		  loader.onload(loader.bufferList);
+	  },
+	  function(error) {
+		console.error('decodeAudioData error', error);
+	  }
+	);
   }
 
   request.onerror = function() {
-    alert('BufferLoader: XHR error');
+	alert('BufferLoader: XHR error');
   }
 
   request.send();
@@ -101,6 +101,7 @@ var avgcurrent = 0;
 var avgarray = [];
 var avgindex = 0;
 var isPlaying = false;
+var echonestApiKey = "Y1DLGIFESVQSWAZTE";
 
 var ctx = $("#canvas").get()[0].getContext("2d");
 
@@ -119,7 +120,7 @@ loadSound("when.mp3");
 function setupAudioNodes() {
 	javascriptNode = context.createJavaScriptNode(2048, 1, 1);
 	javascriptNode.connect(context.destination);
-    
+	
 	// set up analyzer
 	analyser = context.createAnalyser();
 	analyser.soothingTimeConstant = 0.3;
@@ -161,10 +162,10 @@ function loadSound(url) {
 		decoded = context.decodeAudioData(request.response, function(buffer) {
 		// when the audio is decoded play the sound
 		playSound(buffer);
-        masterBuffer = context.createBuffer(request.response, false);
+		masterBuffer = context.createBuffer(request.response, false);
 		}, onError);
-        
-        
+		
+		
 	}
 	request.send();
 }
@@ -172,24 +173,24 @@ function loadSound(url) {
 function playSound(buffer) {
 	sourceNode.buffer = buffer;
 	sourceNode.noteOn(0);
-    isPlaying = true;
+	isPlaying = true;
 }
 
 function startSound() {
 	//sourceNode.buffer = masterBuffer;
 	//sourceNode.noteOn(0);
-    var source = context.createBufferSource();
-    sourceNode = source;
-    source.buffer = masterBuffer;
-    source.connect(splitter);
-    source.connect(context.destination);
-    source.noteOn(0);
-    isPlaying = true;
+	var source = context.createBufferSource();
+	sourceNode = source;
+	source.buffer = masterBuffer;
+	source.connect(splitter);
+	source.connect(context.destination);
+	source.noteOn(0);
+	isPlaying = true;
 }
 
 function stopSound() {
 	sourceNode.noteOff(0);
-    isPlaying = false;
+	isPlaying = false;
 }
 
 function onError(e) {
@@ -201,51 +202,60 @@ javascriptNode.onaudioprocess = function() {
 	var array = new Uint8Array(analyser.frequencyBinCount);
 	analyser.getByteFrequencyData(array);
 	var average = getAverageVolume(array);
-	console.log(array[100]);
+	/*
+	var maxData = getMaxInRange(array, 300, 512);
+	console.log("Max between 300, 512: " + maxData[0] + " at index " + maxData[1]);
+	*/
+	var maxData = getMaxInRange(array, 358, 370);	
+	if([0] > 100) {
+		console.log("snare");
+	}
 
 	// get average for second channel
 	var array2 = new Uint8Array(analyser.frequencyBinCount);
 	analyser2.getByteFrequencyData(array2);
 	var average2 = getAverageVolume(array2);
 
-    // average volume over time
-    if (isPlaying) {
-        //samplecount++;
-        avgtotal = (average + average2)/2;
-        //avgcurrent = avgtotal/samplecount;
-        
-        if (avgindex >= 60) {
-            avgindex = 0;
-        }
-        
-        avgarray[avgindex] = avgtotal;
-        avgcurrent = 0;
-        console.log("Array size: " + avgarray.length + ", avgcurrent: " + avgcurrent);
-        for (i = 0; i < avgarray.length; i++) {
-            avgcurrent += avgarray[i];
-            //console.log("avgarray[" + i + "]: " + avgarray[i]);
-        }
-        avgcurrent = avgcurrent/avgarray.length;
-        avgindex++;
-        
-        console.log("Current average: " + avgcurrent);
-        console.log("Average Left: " + average + ", Average Right: " + average2);
-        // clear current state
-        ctx.clearRect(0, 0, 100, 130);
-        
-        ctx.fillStyle = gradient;
-        
-        ctx.fillRect(0, 130-average, 25, 130);
-        ctx.fillRect(30, 130-average2, 25, 130);
-        
-        if (average > avgcurrent*1.25 || average2 > avgcurrent*1.25) {
-            ctx.fillRect(70, 60, 20, 20);
-        }
-    }
+	// average volume over time
+	if (isPlaying) {
+		//samplecount++;
+		avgtotal = (average + average2)/2;
+		//avgcurrent = avgtotal/samplecount;
+		
+		if (avgindex >= 60) {
+			avgindex = 0;
+		}
+		
+		avgarray[avgindex] = avgtotal;
+		avgcurrent = 0;
+		//console.log("Array size: " + avgarray.length + ", avgcurrent: " + avgcurrent);
+		for (i = 0; i < avgarray.length; i++) {
+			avgcurrent += avgarray[i];
+			//console.log("avgarray[" + i + "]: " + avgarray[i]);
+		}
+		avgcurrent = avgcurrent/avgarray.length;
+		avgindex++;
+		
+		/*
+		console.log("Current average: " + avgcurrent);
+		console.log("Average Left: " + average + ", Average Right: " + average2);
+		*/
+		// clear current state
+		ctx.clearRect(0, 0, 100, 130);
+		
+		ctx.fillStyle = gradient;
+		
+		ctx.fillRect(0, 130-average, 25, 130);
+		ctx.fillRect(30, 130-average2, 25, 130);
+		
+		if (average > avgcurrent*1.25 || average2 > avgcurrent*1.25) {
+			ctx.fillRect(70, 60, 20, 20);
+		}
+	}
 }
 
 function raiseThreshold() {
-    threshold += 10;
+	threshold += 10;
 }
 
 	var threshold = 70;
@@ -257,7 +267,7 @@ function raiseThreshold() {
 	}
 
 function lowerThreshold() {
-    threshold -= 10;
+	threshold -= 10;
 }
 
 function getAverageVolume(array) {
@@ -272,4 +282,52 @@ function getAverageVolume(array) {
 
 	average = values / length;
 	return average;
+}
+
+function getMaxInRange(array, min, max) {
+	var maxValue = 0;
+	var index = min;
+	for(var i = min; i < max; i ++) {
+		if(array[i] > maxValue) {
+			maxValue = array[i];
+			index = i;
+		} 
+	}
+	return[maxValue, index];
+}
+
+$('#submitbutton').click(function(){
+		console.log("clicked upload");
+    var formData = new FormData($('form')[0]);
+    var $ret = 0;
+    $.ajax({
+        url: 'http://developer.echonest.com/api/v4/track/upload',  //server script to process data
+        type: 'POST',
+        data: formData,
+        //Options to tell JQuery not to process data or worry about content-type
+        cache: false,
+        contentType: false,
+        processData: false,
+
+        success: function(data) {
+        	saveEchoNest(data);
+        },
+
+        //Ajax events
+        beforeSend: beforeSendHandler,
+        success: completeHandler,
+        error: errorHandler,
+    });
+    return $ret;
+});
+
+function saveEchoNest(data) {
+	console.log(data);
+}
+
+function getBpm() {
+	var request = new XMLHttpRequest();
+	var url = "http://developer.echonest.com/api/v4/track/profile?api_key=%s&format=json&id=TRTLKZV12E5AC92E11&bucket=audio_summary", echonestApiKey;
+	request.open("GET", url, true);
+	request.responseType = "arraybuffer";
 }
