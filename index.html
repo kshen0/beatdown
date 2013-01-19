@@ -4,22 +4,10 @@
 		<link rel="stylesheet" type="text/css" href="style.css" />
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<title>Beatdown</title>
-		  <style>
-		  p { color:red; margin:5px; cursor:pointer; }
-		  p:hover { background:yellow; }
-		  </style>
 	</head>
 	<script type="text/javascript" src="jquery-1.9.0.min.js"></script>  
 	<body>
-		<button id="target">
-		Click here
-		</button>
-
 		<p>Volume visualizer</p>
-		<form enctype="multipart/form-data">
-			<input name="file" type="file" />
-			<input id="submitbutton" type="button" value="Upload" />
-		</form>
 		<button onclick="startSound()">Play</button>
 		<button onclick="stopSound()">Stop</button>
         <button onclick="widenFilt()">Q+</button>
@@ -29,6 +17,5 @@
 		<canvas id="canvas" width="250" height="130" style="display: block;">
 
 	</body>
-	<script type="text/javascript" src="upload.js"></script>
 	<script type="text/javascript" src="audioProcess.js"></script>
 </html>
