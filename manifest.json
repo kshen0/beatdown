@@ -1,0 +1,14 @@
+{
+	"name": "Beatdown",
+	"version": "0.0.1",
+	"icons": {
+		 "128": "icons/beatdown.png"
+	},
+	"app": {
+	       "launch": {
+	       		 "local_path": "index.html"
+		}
+	},
+	
+	"description": "BEATDOWN WILL MELT YOUR GRANDMA'S FACE"
+}
