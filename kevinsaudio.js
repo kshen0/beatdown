@@ -105,7 +105,7 @@ gradient.addColorStop(0,'#ffffff');
 
 // load sound
 setupAudioNodes();
-loadSound("01 Artificial Nocturne.mp3");
+loadSound("12 Ghost Overload.mp3");
 
 
 function setupAudioNodes() {
@@ -181,6 +181,7 @@ javascriptNode.onaudioprocess = function() {
 	var array = new Uint8Array(analyser.frequencyBinCount);
 	analyser.getByteFrequencyData(array);
 	var average = getAverageVolume(array);
+	console.log(array[100]);
 
 	// get average for second channel
 	var array2 = new Uint8Array(analyser.frequencyBinCount);
@@ -192,8 +193,13 @@ javascriptNode.onaudioprocess = function() {
 
 	ctx.fillStyle = gradient;
 
-	ctx.fillRect(0, 130-average, 25, 130);
-	ctx.fillRect(30, 130-average2, 25, 130);
+	var threshold = 70;
+	if(130-average < threshold) {
+		ctx.fillRect(0, 130-average, 25, 130);
+	}
+	if(130-average2 < threshold) {
+		ctx.fillRect(30, 130-average2, 25, 130);
+	}
 }
 
 function getAverageVolume(array) {
