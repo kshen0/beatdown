@@ -81,6 +81,8 @@ function finishedLoading(bufferList) {
   //source2.noteOn(0);
 }
 */
+
+// audioProcess.js
 var script = document.createElement('script');
 script.src = './jquery-1.9.0.min.js';
 script.type = 'text/javascript';
