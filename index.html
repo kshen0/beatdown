@@ -10,10 +10,12 @@
 		<p>Volume visualizer</p>
 		<button onclick="startSound()">Play</button>
 		<button onclick="stopSound()">Stop</button>
-        <button onclick="raiseThreshold()">T+</button>
-        <button onclick="lowerThreshold()">T-</button>
-		<canvas id="canvas" width="100" height="130" style="display: block;">
+        <button onclick="widenFilt()">Q+</button>
+        <button onclick="narrowFilt()">Q-</button>
+				<button onclick="raiseFilt()">F+</button>
+				<button onclick="lowerFilt()">F-</button>
+		<canvas id="canvas" width="250" height="130" style="display: block;">
 
 	</body>
-	<script type="text/javascript" src="kevinsaudio.js"></script>
+	<script type="text/javascript" src="audioProcess.js"></script>
 </html>
