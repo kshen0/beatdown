@@ -81,6 +81,8 @@ function finishedLoading(bufferList) {
   //source2.noteOn(0);
 }
 */
+
+// audioProcess.js
 var script = document.createElement('script');
 script.src = './jquery-1.9.0.min.js';
 script.type = 'text/javascript';
@@ -296,38 +298,3 @@ function getMaxInRange(array, min, max) {
 	return[maxValue, index];
 }
 
-$('#submitbutton').click(function(){
-		console.log("clicked upload");
-    var formData = new FormData($('form')[0]);
-    var $ret = 0;
-    $.ajax({
-        url: 'http://developer.echonest.com/api/v4/track/upload',  //server script to process data
-        type: 'POST',
-        data: formData,
-        //Options to tell JQuery not to process data or worry about content-type
-        cache: false,
-        contentType: false,
-        processData: false,
-
-        success: function(data) {
-        	saveEchoNest(data);
-        },
-
-        //Ajax events
-        beforeSend: beforeSendHandler,
-        success: completeHandler,
-        error: errorHandler,
-    });
-    return $ret;
-});
-
-function saveEchoNest(data) {
-	console.log(data);
-}
-
-function getBpm() {
-	var request = new XMLHttpRequest();
-	var url = "http://developer.echonest.com/api/v4/track/profile?api_key=%s&format=json&id=TRTLKZV12E5AC92E11&bucket=audio_summary", echonestApiKey;
-	request.open("GET", url, true);
-	request.responseType = "arraybuffer";
-}
