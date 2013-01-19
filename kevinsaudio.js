@@ -92,7 +92,15 @@ var sourceNode;
 var splitter;
 var analyser, analyser2;
 var javascriptNode;
-var decoded; 
+var decoded;
+var masterBuffer;
+var threshold = 100;
+var samplecount = 1;
+var avgtotal = 0;
+var avgcurrent = 0;
+var avgarray = [];
+var avgindex = 0;
+var isPlaying = false;
 
 var ctx = $("#canvas").get()[0].getContext("2d");
 
@@ -105,13 +113,13 @@ gradient.addColorStop(0,'#ffffff');
 
 // load sound
 setupAudioNodes();
-loadSound("12 Ghost Overload.mp3");
+loadSound("when.mp3");
 
 
 function setupAudioNodes() {
 	javascriptNode = context.createJavaScriptNode(2048, 1, 1);
 	javascriptNode.connect(context.destination);
-
+    
 	// set up analyzer
 	analyser = context.createAnalyser();
 	analyser.soothingTimeConstant = 0.3;
@@ -153,7 +161,10 @@ function loadSound(url) {
 		decoded = context.decodeAudioData(request.response, function(buffer) {
 		// when the audio is decoded play the sound
 		playSound(buffer);
+        masterBuffer = context.createBuffer(request.response, false);
 		}, onError);
+        
+        
 	}
 	request.send();
 }
@@ -161,15 +172,24 @@ function loadSound(url) {
 function playSound(buffer) {
 	sourceNode.buffer = buffer;
 	sourceNode.noteOn(0);
+    isPlaying = true;
 }
 
 function startSound() {
-	sourceNode.buffer = decoded;
-	sourceNode.noteOn(0);
+	//sourceNode.buffer = masterBuffer;
+	//sourceNode.noteOn(0);
+    var source = context.createBufferSource();
+    sourceNode = source;
+    source.buffer = masterBuffer;
+    source.connect(splitter);
+    source.connect(context.destination);
+    source.noteOn(0);
+    isPlaying = true;
 }
 
 function stopSound() {
 	sourceNode.noteOff(0);
+    isPlaying = false;
 }
 
 function onError(e) {
@@ -188,10 +208,45 @@ javascriptNode.onaudioprocess = function() {
 	analyser2.getByteFrequencyData(array2);
 	var average2 = getAverageVolume(array2);
 
-	// clear current state
-	ctx.clearRect(0, 0, 60, 130);
+    // average volume over time
+    if (isPlaying) {
+        //samplecount++;
+        avgtotal = (average + average2)/2;
+        //avgcurrent = avgtotal/samplecount;
+        
+        if (avgindex >= 60) {
+            avgindex = 0;
+        }
+        
+        avgarray[avgindex] = avgtotal;
+        avgcurrent = 0;
+        console.log("Array size: " + avgarray.length + ", avgcurrent: " + avgcurrent);
+        for (i = 0; i < avgarray.length; i++) {
+            avgcurrent += avgarray[i];
+            //console.log("avgarray[" + i + "]: " + avgarray[i]);
+        }
+        avgcurrent = avgcurrent/avgarray.length;
+        avgindex++;
+        
+        console.log("Current average: " + avgcurrent);
+        console.log("Average Left: " + average + ", Average Right: " + average2);
+        // clear current state
+        ctx.clearRect(0, 0, 100, 130);
+        
+        ctx.fillStyle = gradient;
+        
+        ctx.fillRect(0, 130-average, 25, 130);
+        ctx.fillRect(30, 130-average2, 25, 130);
+        
+        if (average > avgcurrent*1.25 || average2 > avgcurrent*1.25) {
+            ctx.fillRect(70, 60, 20, 20);
+        }
+    }
+}
 
-	ctx.fillStyle = gradient;
+function raiseThreshold() {
+    threshold += 10;
+}
 
 	var threshold = 70;
 	if(130-average < threshold) {
@@ -200,6 +255,9 @@ javascriptNode.onaudioprocess = function() {
 	if(130-average2 < threshold) {
 		ctx.fillRect(30, 130-average2, 25, 130);
 	}
+
+function lowerThreshold() {
+    threshold -= 10;
 }
 
 function getAverageVolume(array) {
