@@ -71,7 +71,7 @@ var isPlaying = false;
 
 var ctx = $("#canvas").get()[0].getContext("2d");
 
-// crete gradient
+// create gradient
 var gradient = ctx.createLinearGradient(0, 0, 0, 130);
 gradient.addColorStop(1,'#000000');
 gradient.addColorStop(0.75,'#ff0000');
@@ -80,7 +80,7 @@ gradient.addColorStop(0,'#ffffff');
 
 // load sound
 setupAudioNodes();
-loadSound("gangnam.mp3");
+loadSound("Our Life.mp3");
 
 
 function setupAudioNodes() {
@@ -265,26 +265,6 @@ javascriptNode.onaudioprocess = function() {
 		ctx.fillRect(70, 130-average, 50, 130);
 		ctx.fillRect(125, 130-average2, 50, 130);
 		
-		ctx.fillStyle = "rgb(214, 214, 214)";
-		if (average > volumecurrent*1.2 || average2 > volumecurrent*1.2) {
-			//ctx.fillRect(70, 10, 20, 20);
-		}
-/*
-		ctx.fillStyle = "rgb(219, 178, 44)";
-		if (lowaverage > lowcurrent*lowtolerance || lowaverage2 > lowcurrent*lowtolerance) {
-			ctx.fillRect(180, 480, 20, 20);
-		}
-		
-		ctx.fillStyle = "rgb(164, 219, 44)";
-		if (midaverage > midcurrent*midtolerance || midaverage2 > midcurrent*midtolerance) {
-			ctx.fillRect(180, 380, 20, 20);
-		}
-		
-		ctx.fillStyle = "rgb(27, 201, 224)";
-		if (highaverage > highcurrent*hightolerance || highaverage2 > highcurrent*hightolerance) {
-			ctx.fillRect(180, 280, 20, 20);
-		}
-		*/
 		//console.log("HA: " + Math.round(highaverage) + ", HC: " + Math.round(highcurrent*hightolerance) + " | MA: " + Math.round(midaverage) + ", MC: " + Math.round(midcurrent*midtolerance) + " | LA: " + Math.round(lowaverage) + ", LC: " + Math.round(lowcurrent*lowtolerance));
 		
 		ctx.font = "12pt Calibri";
@@ -409,6 +389,10 @@ javascriptNode.onaudioprocess = function() {
 			ctx.lineWidth = 20;
 			ctx.strokeStyle = "rgb(239, 198, 64)";
 			ctx.stroke();
+			$('div.low').text((lowaverage + lowaverage2)/2);
+		}
+		else {
+			$('div.low').text(false);
 		}
 		
 		if (midaverage > midcurrent*midtolerance || midaverage2 > midcurrent*midtolerance) {

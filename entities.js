@@ -1,6 +1,10 @@
 /*----------------------------
 A title screen
 -------------------------------*/
+var script = document.createElement('script');
+script.src = './jquery-1.9.0.min.js';
+script.type = 'text/javascript';
+document.getElementsByTagName('head')[0].appendChild(script);
 
 var TitleScreen = me.ScreenObject.extend({
 
@@ -150,6 +154,8 @@ var scoreIncCount = 0;
 // flickering bool since is flickering won't work for me
 var isFlickering = false;
 
+var lowOn = false;
+
 /*-------------------
 a player entity
 -------------------------------- */
@@ -183,6 +189,21 @@ var PlayerEntity = me.ObjectEntity.extend({
  
     ------ */
     update: function() {
+        var low = $('div.low').text();
+        if(low != 'false') {
+            if(lowOn == false) {
+                console.log("spawn");
+                spawnEnemy(200, 200, 20, 'Wheelie');
+                lowOn = true;
+            }
+        }
+        else {
+            if(lowOn == true) {
+                lowOn = false;
+                console.log("false");
+            }
+        }
+
         if(poweredUp == true) {
 
         }
