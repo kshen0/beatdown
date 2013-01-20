@@ -68,12 +68,12 @@ var g_resources = [
     channel: 2
 },
 //BUY1
-{
+/*{
     name: "BUY1",
     type: "audio",
     src: "data/audio/",
     //channel: 2
-}];
+}*/];
  
 var jsApp = {
     /* ---

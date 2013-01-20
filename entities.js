@@ -44,7 +44,7 @@ var TitleScreen = me.ScreenObject.extend({
         me.input.bindKey(me.input.KEY.ENTER, "enter", true);
  
         // play something (play doesn't loop, playTrack does)
-        me.audio.playTrack("BUY1");
+        //me.audio.playTrack("BUY1");
 
     },
 
@@ -69,7 +69,7 @@ var TitleScreen = me.ScreenObject.extend({
     draw: function(context) {
         context.drawImage(this.title, 0, 0);
 
-        this.font.draw(context, "PRESS ENTER TO PLAY", 20, 240);
+        //this.font.draw(context, "PRESS ENTER TO PLAY", 20, 240);
        // this.scrollerfont.draw(context, this.scroller, this.scrollerpos, 440);
     },
 
