@@ -285,7 +285,7 @@ javascriptNode.onaudioprocess = function() {
 			ctx.fillRect(180, 280, 20, 20);
 		}
 		*/
-		console.log("HA: " + Math.round(highaverage) + ", HC: " + Math.round(highcurrent*hightolerance) + " | MA: " + Math.round(midaverage) + ", MC: " + Math.round(midcurrent*midtolerance) + " | LA: " + Math.round(lowaverage) + ", LC: " + Math.round(lowcurrent*lowtolerance));
+		//console.log("HA: " + Math.round(highaverage) + ", HC: " + Math.round(highcurrent*hightolerance) + " | MA: " + Math.round(midaverage) + ", MC: " + Math.round(midcurrent*midtolerance) + " | LA: " + Math.round(lowaverage) + ", LC: " + Math.round(lowcurrent*lowtolerance));
 		
 		ctx.font = "12pt Calibri";
 		ctx.fillStyle = "rgb(255, 255, 255)";
@@ -368,7 +368,7 @@ javascriptNode.onaudioprocess = function() {
 		}else if (mpos > 0) {
 			mpos = 0;
 		}
-		console.log("pos: " + pos + ", mpos: " + mpos);
+		//console.log("pos: " + pos + ", mpos: " + mpos);
 		ctx.arc(130, 300, 40, mpos, mpos + 0.1, false);
 		ctx.lineWidth = 70;
 		ctx.strokeStyle = "rgb(27, 201, 224)";
@@ -395,7 +395,7 @@ javascriptNode.onaudioprocess = function() {
 		}else if (mpos > 0) {
 			mpos = 0;
 		}
-		console.log("pos: " + pos + ", mpos: " + mpos);
+		//console.log("pos: " + pos + ", mpos: " + mpos);
 		ctx.arc(130, 500, 40, mpos, mpos + 0.1, false);
 		ctx.lineWidth = 70;
 		ctx.strokeStyle = "rgb(219, 178, 44)";

@@ -320,6 +320,17 @@ var PlayerEntity = me.ObjectEntity.extend({
             spawnMultipleEnemies(randSpawnPoint,6);
          }
 
+
+         if (me.input.isKeyPressed('flash')) {
+            //me.video.clearSurface(me.video.context2D, "black");
+            //var ctx = me.video.createCanvasSurface(850, 550);
+            //ctx.fillStyle = "rgb(255, 255, 255)";
+            //ctx.fillRect(0, 0, 100, 100);
+            me.game.viewport.shake(2, 15, me.game.viewport.AXIS.Y);
+
+            console.log(me.video.getHeight());
+            me.game.viewport.reset(0, 0);
+         }
          // inc the score for the player by 100 for stayin aliveeee
          scoreIncCount++;
          if (scoreIncCount == 100) {
