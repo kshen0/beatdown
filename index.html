@@ -17,12 +17,14 @@
 		<script type="text/javascript" src="jquery-1.9.0.min.js"></script>  
 		<canvas id="canvas" width="250" height="130" style="display: block;"></canvas>
 		<script type="text/javascript" src="audioProcess.js"></script>
-		<p>Volume visualizer</p>
 		<button onclick="startSound()">Play</button>
 		<button onclick="stopSound()">Stop</button>
         <button onclick="widenFilt()">Q+</button>
         <button onclick="narrowFilt()">Q-</button>
 				<button onclick="raiseFilt()">F+</button>
 				<button onclick="lowerFilt()">F-</button>
+		<div class="low">false</div>
+		<p id="mid"></p>
+		<p id="high"></p>
 	</body>
 </html>

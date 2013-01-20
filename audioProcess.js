@@ -68,7 +68,7 @@ var isPlaying = false;
 
 var ctx = $("#canvas").get()[0].getContext("2d");
 
-// crete gradient
+// create gradient
 var gradient = ctx.createLinearGradient(0, 0, 0, 130);
 gradient.addColorStop(1,'#000000');
 gradient.addColorStop(0.75,'#ff0000');
@@ -77,7 +77,7 @@ gradient.addColorStop(0,'#ffffff');
 
 // load sound
 setupAudioNodes();
-loadSound("adele.mp3");
+loadSound("Our Life.mp3");
 
 
 function setupAudioNodes() {
@@ -250,7 +250,9 @@ javascriptNode.onaudioprocess = function() {
 		
 		ctx.fillStyle = gradient;
 		
+		// left channel
 		ctx.fillRect(0, 130-average, 25, 130);
+		// right channel
 		ctx.fillRect(30, 130-average2, 25, 130);
 		
 		ctx.fillStyle = "rgb(214, 214, 214)";
@@ -258,22 +260,29 @@ javascriptNode.onaudioprocess = function() {
 			//ctx.fillRect(70, 10, 20, 20);
 		}
 		
+		// low pitch indicator
 		ctx.fillStyle = "rgb(219, 178, 44)";
 		if (lowaverage > lowcurrent*lowtolerance || lowaverage2 > lowcurrent*lowtolerance) {
 			ctx.fillRect(70, 100, 20, 20);
+			$('div.low').text((lowaverage + lowaverage2)/2);
+		}
+		else {
+			$('div.low').text(false);
 		}
 		
+		// mid pitch indicator
 		ctx.fillStyle = "rgb(164, 219, 44)";
 		if (midaverage > midcurrent*midtolerance || midaverage2 > midcurrent*midtolerance) {
 			ctx.fillRect(70, 70, 20, 20);
 		}
 		
+		// high pitch indicator
 		ctx.fillStyle = "rgb(27, 201, 224)";
 		if (highaverage > highcurrent*hightolerance || highaverage2 > highcurrent*hightolerance) {
 			ctx.fillRect(70, 40, 20, 20);
 		}
 		
-		console.log("HA: " + Math.round(highaverage) + ", HC: " + Math.round(highcurrent*hightolerance) + " | MA: " + Math.round(midaverage) + ", MC: " + Math.round(midcurrent*midtolerance) + " | LA: " + Math.round(lowaverage) + ", LC: " + Math.round(lowcurrent*lowtolerance));
+		//console.log("HA: " + Math.round(highaverage) + ", HC: " + Math.round(highcurrent*hightolerance) + " | MA: " + Math.round(midaverage) + ", MC: " + Math.round(midcurrent*midtolerance) + " | LA: " + Math.round(lowaverage) + ", LC: " + Math.round(lowcurrent*lowtolerance));
 		
 		ctx.font = "12pt Calibri";
 		ctx.fillStyle = "rgb(0, 0, 0)";

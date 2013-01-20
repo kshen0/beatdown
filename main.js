@@ -233,7 +233,6 @@ function decHealth() {
     window.setTimeout(function() {isFlickering = false}, 3000);
 
   } 
-  
 }
  
 //bootstrap :)
