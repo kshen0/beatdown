@@ -77,7 +77,7 @@ gradient.addColorStop(0,'#ffffff');
 
 // load sound
 setupAudioNodes();
-loadSound("thrift.mp3");
+loadSound("adele.mp3");
 
 
 function setupAudioNodes() {

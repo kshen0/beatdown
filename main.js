@@ -185,21 +185,6 @@ var PlayScreen = me.ScreenObject.extend({
 }
  
 });
-/*
-//MAIN GAME LOOP
-setInterval(onTimerTick, 33); // 33 milliseconds = ~ 30 frames per sec
-
-function onTimerTick() {
-    if (me.input.isKeyPressed('spawn')) {
-    	//me.entityPool.add("CoinEntity2", CoinEntity);
-    	//me.state.change(me.state.PAUSE); 
-    	  var newEnemy = new CoinEntity(2, 2, {image: 'spinning_coin_gold', spritewidth: 32, spriteheight: 32});
-    	  me.game.add(newEnemy, this.z);
-    	  //me.game.add(new EnemyEntity(5, 5,{}), 3);
-    	  me.game.sort();
-    	  console.log("fuck yea");
-    } 
-}*/
 
 /*----------------------------------------
 
@@ -218,46 +203,6 @@ function incScore() {
 function decHealth() {
     me.game.HUD.updateItemValue("health", -100);
 }
-/*
-//MAIN GAME LOOP
-setInterval(onTimerTick, 33); // 33 milliseconds = ~ 30 frames per sec
-
-function onTimerTick() {
-    if (true) {
-        // maybe check to see what type of thing to spawn based on intensity
-        //set bool to false and repeat
-    }
-
-    if (me.input.isKeyPressed('i')) {
-        incScore();
-    }
-
-     if (me.input.isKeyPressed('u')) {
-        decHealth();
-    }
-
-    if (me.input.isKeyPressed('left')) {
-
-    	  me.game.add(new EnemyEntity(5, 5,{}), 10);
-          
-    } 
-}
-
-var songList = new Array();
-songList[0] = "cling";
-songList[1] = "BUY1";
-songNum = 0;
-setInterval(switchSong, 2000);
-function switchSong() {
-    if (songNum == 0) {
-        me.audio.play(songList[0]);
-        songNum++;
-    } else if (songNum == 1) {
-        me.audio.play(songList[1]);
-        songNum--;
-    }
-} */
-
  
 //bootstrap :)
 window.onReady(function() {
