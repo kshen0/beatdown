@@ -316,63 +316,30 @@ var PlayerEntity = me.ObjectEntity.extend({
                 // Combat
                 if(coolDown == 0) {
                     // Shoot or melee regardless of movement
-                    if(me.input.isKeyPressed('shoot')) {
-                        coolDown = 15;
-                        //console.log("Bullet fired");
-                        
-                        if(playerD == 'n') {
-                            var shot = new BulletEntity(this.pos.x, this.pos.y, { image: 'bullet_up', 
-                            spritewidth: 32, spriteheight: 32, width: 1, height: 1, ijkl: false});
-                        }
-                        else if(playerD == 's') {
-                            var shot = new BulletEntity(this.pos.x, this.pos.y, { image: 'bullet_down', 
-                            spritewidth: 32, spriteheight: 32, width: 1, height: 1, ijkl: false});
-                        }
-                        else if(playerD == 'w') {
-                            var shot = new BulletEntity(this.pos.x, this.pos.y, { image: 'bullet_left', 
-                            spritewidth: 32, spriteheight: 32, width: 1, height: 1, ijkl: false});
-                        }
-                        else {
-                            var shot = new BulletEntity(this.pos.x, this.pos.y, { image: 'bullet_right', 
-                            spritewidth: 32, spriteheight: 32, width: 1, height: 1, ijkl: false});
-                        }
-                        /*
-                        var shot = new BulletEntity(this.pos.x, this.pos.y, { image: 'bullet_right', 
-                            spritewidth: 32, spriteheight: 32, width: 1, height: 1});
-                        */
-                        me.game.add(shot, this.z);
-                        me.game.sort();
-                        // Play animation?
-                    }
-                    else if(me.input.isKeyPressed('melee')) {
-                        coolDown = 15;
-                        //console.log("MELEE");
-                        // Play melee animation
-                        // Test melee
-                    }
-                    else if(me.input.isKeyPressed('shootup')) {
-                        coolDown = 15;
+                    
+                    if(me.input.isKeyPressed('shootup')) {
+                        coolDown = 8;
                         var shot = new BulletEntity(this.pos.x, this.pos.y, { image: 'bullet_up', 
                             spritewidth: 32, spriteheight: 32, width: 1, height: 1, ijkl: true, direc: 'up'});
                         me.game.add(shot, this.z);
                         me.game.sort();
                     }
                     else if(me.input.isKeyPressed('shootleft')) {
-                        coolDown = 15;
+                        coolDown = 8;
                         var shot = new BulletEntity(this.pos.x, this.pos.y, { image: 'bullet_left', 
                             spritewidth: 32, spriteheight: 32, width: 1, height: 1, ijkl: true, direc: 'left'});
                         me.game.add(shot, this.z);
                         me.game.sort();
                     }
                     else if(me.input.isKeyPressed('shootdown')) {
-                        coolDown = 15;
+                        coolDown = 8;
                         var shot = new BulletEntity(this.pos.x, this.pos.y, { image: 'bullet_down', 
                             spritewidth: 32, spriteheight: 32, width: 1, height: 1, ijkl: true, direc: 'down'});
                         me.game.add(shot, this.z);
                         me.game.sort();
                     }
                     else if(me.input.isKeyPressed('shootright')) {
-                        coolDown = 15;
+                        coolDown = 8;
                         var shot = new BulletEntity(this.pos.x, this.pos.y, { image: 'bullet_right', 
                             spritewidth: 32, spriteheight: 32, width: 1, height: 1, ijkl: true, direc: 'right'});
                         me.game.add(shot, this.z);
@@ -424,41 +391,8 @@ var PlayerEntity = me.ObjectEntity.extend({
                 // Combat
                 if(coolDown == 0) {
                     // Shoot or melee regardless of movement
-                    if(me.input.isKeyPressed('shoot')) {
-                        coolDown = 5;
-                        //console.log("Bullet fired");
-                        
-                        if(playerD == 'n') {
-                            var shot = new BulletEntity(this.pos.x, this.pos.y, { image: 'bullet_up', 
-                            spritewidth: 32, spriteheight: 32, width: 1, height: 1, ijkl: false});
-                        }
-                        else if(playerD == 's') {
-                            var shot = new BulletEntity(this.pos.x, this.pos.y, { image: 'bullet_down', 
-                            spritewidth: 32, spriteheight: 32, width: 1, height: 1, ijkl: false});
-                        }
-                        else if(playerD == 'w') {
-                            var shot = new BulletEntity(this.pos.x, this.pos.y, { image: 'bullet_left', 
-                            spritewidth: 32, spriteheight: 32, width: 1, height: 1, ijkl: false});
-                        }
-                        else {
-                            var shot = new BulletEntity(this.pos.x, this.pos.y, { image: 'bullet_right', 
-                            spritewidth: 32, spriteheight: 32, width: 1, height: 1, ijkl: false});
-                        }
-                        /*
-                        var shot = new BulletEntity(this.pos.x, this.pos.y, { image: 'bullet_right', 
-                            spritewidth: 32, spriteheight: 32, width: 1, height: 1});
-                        */
-                        me.game.add(shot, this.z);
-                        me.game.sort();
-                        // Play animation?
-                    }
-                    else if(me.input.isKeyPressed('melee')) {
-                        coolDown = 5;
-                        //console.log("MELEE");
-                        // Play melee animation
-                        // Test melee
-                    }
-                    else if(me.input.isKeyPressed('shootup')) {
+                    
+                    if(me.input.isKeyPressed('shootup')) {
                         coolDown = 5;
                         var shot = new BulletEntity(this.pos.x, this.pos.y, { image: 'bullet_up', 
                             spritewidth: 32, spriteheight: 32, width: 1, height: 1, ijkl: true, direc: 'up'});
@@ -528,63 +462,29 @@ var PlayerEntity = me.ObjectEntity.extend({
             // Combat
             if(coolDown == 0) {
                 // Shoot or melee regardless of movement
-                if(me.input.isKeyPressed('shoot')) {
-                    coolDown = 15;
-                    //console.log("Bullet fired");
-                    
-                    if(playerD == 'n') {
-                        var shot = new BulletEntity(this.pos.x, this.pos.y, { image: 'bullet_up', 
-                        spritewidth: 32, spriteheight: 32, width: 1, height: 1, ijkl: false});
-                    }
-                    else if(playerD == 's') {
-                        var shot = new BulletEntity(this.pos.x, this.pos.y, { image: 'bullet_down', 
-                        spritewidth: 32, spriteheight: 32, width: 1, height: 1, ijkl: false});
-                    }
-                    else if(playerD == 'w') {
-                        var shot = new BulletEntity(this.pos.x, this.pos.y, { image: 'bullet_left', 
-                        spritewidth: 32, spriteheight: 32, width: 1, height: 1, ijkl: false});
-                    }
-                    else {
-                        var shot = new BulletEntity(this.pos.x, this.pos.y, { image: 'bullet_right', 
-                        spritewidth: 32, spriteheight: 32, width: 1, height: 1, ijkl: false});
-                    }
-                    /*
-                    var shot = new BulletEntity(this.pos.x, this.pos.y, { image: 'bullet_right', 
-                        spritewidth: 32, spriteheight: 32, width: 1, height: 1});
-                    */
-                    me.game.add(shot, this.z);
-                    me.game.sort();
-                    // Play animation?
-                }
-                else if(me.input.isKeyPressed('melee')) {
-                    coolDown = 15;
-                    //console.log("MELEE");
-                    // Play melee animation
-                    // Test melee
-                }
-                else if(me.input.isKeyPressed('shootup')) {
-                    coolDown = 15;
+                if(me.input.isKeyPressed('shootup')) {
+                    coolDown = 8;
                     var shot = new BulletEntity(this.pos.x, this.pos.y, { image: 'bullet_up', 
                         spritewidth: 32, spriteheight: 32, width: 1, height: 1, ijkl: true, direc: 'up'});
                     me.game.add(shot, this.z);
                     me.game.sort();
                 }
                 else if(me.input.isKeyPressed('shootleft')) {
-                    coolDown = 15;
+                    coolDown = 8;
                     var shot = new BulletEntity(this.pos.x, this.pos.y, { image: 'bullet_left', 
                         spritewidth: 32, spriteheight: 32, width: 1, height: 1, ijkl: true, direc: 'left'});
                     me.game.add(shot, this.z);
                     me.game.sort();
                 }
                 else if(me.input.isKeyPressed('shootdown')) {
-                    coolDown = 15;
+                    coolDown = 8;
                     var shot = new BulletEntity(this.pos.x, this.pos.y, { image: 'bullet_down', 
                         spritewidth: 32, spriteheight: 32, width: 1, height: 1, ijkl: true, direc: 'down'});
                     me.game.add(shot, this.z);
                     me.game.sort();
                 }
                 else if(me.input.isKeyPressed('shootright')) {
-                    coolDown = 15;
+                    coolDown = 8;
                     var shot = new BulletEntity(this.pos.x, this.pos.y, { image: 'bullet_right', 
                         spritewidth: 32, spriteheight: 32, width: 1, height: 1, ijkl: true, direc: 'right'});
                     me.game.add(shot, this.z);
@@ -630,41 +530,8 @@ var PlayerEntity = me.ObjectEntity.extend({
             // Combat
             if(coolDown == 0) {
                 // Shoot or melee regardless of movement
-                if(me.input.isKeyPressed('shoot')) {
-                    coolDown = 5;
-                    //console.log("Bullet fired");
-                    
-                    if(playerD == 'n') {
-                        var shot = new BulletEntity(this.pos.x, this.pos.y, { image: 'bullet_up', 
-                        spritewidth: 32, spriteheight: 32, width: 1, height: 1, ijkl: false});
-                    }
-                    else if(playerD == 's') {
-                        var shot = new BulletEntity(this.pos.x, this.pos.y, { image: 'bullet_down', 
-                        spritewidth: 32, spriteheight: 32, width: 1, height: 1, ijkl: false});
-                    }
-                    else if(playerD == 'w') {
-                        var shot = new BulletEntity(this.pos.x, this.pos.y, { image: 'bullet_left', 
-                        spritewidth: 32, spriteheight: 32, width: 1, height: 1, ijkl: false});
-                    }
-                    else {
-                        var shot = new BulletEntity(this.pos.x, this.pos.y, { image: 'bullet_right', 
-                        spritewidth: 32, spriteheight: 32, width: 1, height: 1, ijkl: false});
-                    }
-                    /*
-                    var shot = new BulletEntity(this.pos.x, this.pos.y, { image: 'bullet_right', 
-                        spritewidth: 32, spriteheight: 32, width: 1, height: 1});
-                    */
-                    me.game.add(shot, this.z);
-                    me.game.sort();
-                    // Play animation?
-                }
-                else if(me.input.isKeyPressed('melee')) {
-                    coolDown = 5;
-                    //console.log("MELEE");
-                    // Play melee animation
-                    // Test melee
-                }
-                else if(me.input.isKeyPressed('shootup')) {
+                
+                if(me.input.isKeyPressed('shootup')) {
                     coolDown = 5;
                     var shot = new BulletEntity(this.pos.x, this.pos.y, { image: 'bullet_up', 
                         spritewidth: 32, spriteheight: 32, width: 1, height: 1, ijkl: true, direc: 'up'});
@@ -763,34 +630,34 @@ var PlayerEntity = me.ObjectEntity.extend({
                     // Play animation?
                 }
                 else if(me.input.isKeyPressed('melee')) {
-                    coolDown = 12;
+                    coolDown = 8;
                     //console.log("MELEE");
                     // Play melee animation
                     // Test melee
                 }
                 else if(me.input.isKeyPressed('shootup')) {
-                    coolDown = 12;
+                    coolDown = 8;
                     var shot = new BulletEntity(this.pos.x, this.pos.y, { image: 'bullet_up', 
                         spritewidth: 32, spriteheight: 32, width: 1, height: 1, ijkl: true, direc: 'up'});
                     me.game.add(shot, this.z);
                     me.game.sort();
                 }
                 else if(me.input.isKeyPressed('shootleft')) {
-                    coolDown = 12;
+                    coolDown = 8;
                     var shot = new BulletEntity(this.pos.x, this.pos.y, { image: 'bullet_left', 
                         spritewidth: 32, spriteheight: 32, width: 1, height: 1, ijkl: true, direc: 'left'});
                     me.game.add(shot, this.z);
                     me.game.sort();
                 }
                 else if(me.input.isKeyPressed('shootdown')) {
-                    coolDown = 12;
+                    coolDown = 8;
                     var shot = new BulletEntity(this.pos.x, this.pos.y, { image: 'bullet_down', 
                         spritewidth: 32, spriteheight: 32, width: 1, height: 1, ijkl: true, direc: 'down'});
                     me.game.add(shot, this.z);
                     me.game.sort();
                 }
                 else if(me.input.isKeyPressed('shootright')) {
-                    coolDown = 12;
+                    coolDown = 8;
                     var shot = new BulletEntity(this.pos.x, this.pos.y, { image: 'bullet_right', 
                         spritewidth: 32, spriteheight: 32, width: 1, height: 1, ijkl: true, direc: 'right'});
                     me.game.add(shot, this.z);
@@ -816,7 +683,7 @@ var PlayerEntity = me.ObjectEntity.extend({
         }
 
         //if(Math.random() > 0.9) {
-        if(Math.random() > 0.9993) {
+        if(Math.random() > 0.999) {
             randX = Math.floor((Math.random()*625)+80); 
             randY = Math.floor((Math.random()*350)+80); 
             spawnCoin(randX, randY, this.z);
@@ -962,7 +829,13 @@ function checkSpawns() {
 
         if(low != 'false') {
             if(lowOn == false) {
-                spawnMultipleEnemies(2, 0, 1, 0);
+                if(Math.random() > 0.5) { 
+                    spawnMultipleEnemies(2, 0, 1, 0);
+                }
+                else {
+                    loc = Math.floor((Math.random()*4)+1); 
+                    spawnMultipleEnemies(loc, 0, 1, 0);
+                }
                 lowOn = true;
                 return;
             }
@@ -1311,7 +1184,10 @@ var BulletEntity = me.ObjectEntity.extend({
         // check for collision
         var res = me.game.collide(this);
         if (res) {
-            if (res.obj.type == me.game.ENEMY_OBJECT) {
+            if (res.obj.type == me.game.PLAYER || res.obj.type == me.game.ITEM) {
+
+            }
+            else if (res.obj.type == me.game.ENEMY_OBJECT) {
                 //log points and play sound
                 console.log("bullet hit mid enemy");
                 
@@ -1339,9 +1215,10 @@ var BulletEntity = me.ObjectEntity.extend({
             else if(res.y != 0 || res.x != 0) {
                 me.game.remove(this);
             }*/
+            /*
             else if (res.obj.type == me.game.PLAYER || res.obj.type == me.game.ITEM) {
 
-            }
+            }*/
             else {
                 me.game.remove(this);
             }

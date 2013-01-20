@@ -174,8 +174,8 @@ var jsApp = {
    me.input.bindKey(me.input.KEY.W,    "up");
    me.input.bindKey(me.input.KEY.S,  "down");
    // Spawn keys
-   me.input.bindKey(me.input.KEY.Q, "spawn", true);
-   me.input.bindKey(me.input.KEY.E, "spawnEnemy", true);
+   //me.input.bindKey(me.input.KEY.Q, "spawn", true);
+   //me.input.bindKey(me.input.KEY.E, "spawnEnemy", true);
    me.input.bindKey(me.input.KEY.R, "spawnMultipleEnemies", true);
    // Combat keys
    //me.input.bindKey(me.input.KEY.P, "shoot");
@@ -189,7 +189,7 @@ var jsApp = {
 
    //CHEATS
    //me.input.bindKey(me.input.KEY.I,  "i");
-   me.input.bindKey(me.input.KEY.U,  "u");
+   //me.input.bindKey(me.input.KEY.U,  "u");
       
    // start the game
    me.state.change(me.state.PLAY);
