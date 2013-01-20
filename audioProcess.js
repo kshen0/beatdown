@@ -68,6 +68,7 @@ var hightolerance = 1.2;
 var lowesthigh = 500;
 
 var isPlaying = false;
+var isLoading = false;
 
 var ctx = $("#canvas").get()[0].getContext("2d");
 
@@ -80,8 +81,6 @@ gradient.addColorStop(0,'#ffffff');
 
 // load sound
 setupAudioNodes();
-loadSound("whenshort.mp3");
-
 
 function setupAudioNodes() {
 	javascriptNode = context.createJavaScriptNode(2048, 1, 1);
@@ -127,6 +126,8 @@ function setupAudioNodes() {
 
 // load the specified sound
 function loadSound(url) {
+	$('div.loading').css('display', 'block');
+	isLoading = true;
 	var request = new XMLHttpRequest();
 	request.open('GET', url, true);
 	request.responseType = 'arraybuffer';
@@ -352,7 +353,7 @@ javascriptNode.onaudioprocess = function() {
 		}else if (mpos > 0) {
 			mpos = 0;
 		}
-		console.log("pos: " + pos + ", mpos: " + mpos);
+		//console.log("pos: " + pos + ", mpos: " + mpos);
 		ctx.arc(130, 300, 40, mpos, mpos + 0.1, false);
 		ctx.lineWidth = 70;
 		ctx.strokeStyle = "rgb(27, 201, 224)";
@@ -379,7 +380,7 @@ javascriptNode.onaudioprocess = function() {
 		}else if (mpos > 0) {
 			mpos = 0;
 		}
-		console.log("pos: " + pos + ", mpos: " + mpos);
+		//console.log("pos: " + pos + ", mpos: " + mpos);
 		ctx.arc(130, 500, 40, mpos, mpos + 0.1, false);
 		ctx.lineWidth = 70;
 		ctx.strokeStyle = "rgb(219, 178, 44)";
@@ -423,7 +424,11 @@ javascriptNode.onaudioprocess = function() {
 		else {
 			$('div.high').text(false);
 		}
-		
+
+		if(isLoading) {	
+			$('div.loading').css('display', 'none');
+			isLoading = false;
+		}
 	}
 }
 

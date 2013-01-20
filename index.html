@@ -2,32 +2,47 @@
 <html>
 	<head>
 		<title>Beatdown</title>
+		<link rel="stylesheet" href="style.css">
 	</head>
 	<body bgcolor="black">
-		<div id="info" style="width: 850px; float:left;">
-			<div id="jsapp">
-				<font color="#FFFFFF", style="position: absolute; font-size: 10px; font-family: Courier New">
-					<span id="framecounter">(0/0 fps)</span>
-				</font>
-				<script type="text/javascript" src="lib/melonJS-0.9.4.js"></script>
-				<script type="text/javascript" src="entities.js"></script>
-				<script type="text/javascript" src="main.js"></script>
+		<div class="loading">
+			<img src="load.gif">
+		</div>
+		<div class="container">
+			<div id="padder-left">
+				<div id="buttonbox">
+					<button onclick="loadSound('gangnam.mp3')">Gangnam Style</button>
+					<button onclick="loadSound('when.mp3')">When</button>
+					<button onclick="loadSound('Our Life.mp3')">Ill Bill</button>
+					<button onclick="loadSound('thrift.mp3')">Thrift Shop</button>
+				</div>
 			</div>
+			<div id="info">
+				<div id="jsapp">
+					<font color="#FFFFFF", style="position: absolute; font-size: 10px; font-family: Courier New">
+						<span id="framecounter">(0/0 fps)</span>
+					</font>
+					<script type="text/javascript" src="lib/melonJS-0.9.4.js"></script>
+					<script type="text/javascript" src="entities.js"></script>
+					<script type="text/javascript" src="main.js"></script>
+				</div>
+			</div>
+			<div>
+					<script type="text/javascript" src="jquery-1.9.0.min.js"></script>  
+					<canvas id="canvas" width="250" height="550" style="display: block;"></canvas>
+					<script type="text/javascript" src="audioProcess.js"></script>
+					<!--
+					<button onclick="startSound()">Play</button>
+					<button onclick="stopSound()">Stop</button>
+			        <button onclick="widenFilt()">Q+</button>
+			        <button onclick="narrowFilt()">Q-</button>
+					<button onclick="raiseFilt()">F+</button>
+					<button onclick="lowerFilt()">F-</button>
+				-->
+			</div>
+			<div class="low">false</div>
+			<div class="mid">false</div>
+			<div class="high">false</div>
 		</div>
-		<div style="float:left;">
-				<script type="text/javascript" src="jquery-1.9.0.min.js"></script>  
-				<canvas id="canvas" width="250" height="550" style="display: block;"></canvas>
-				<script type="text/javascript" src="audioProcess.js"></script>
-				<p>Volume visualizer</p>
-				<button onclick="startSound()">Play</button>
-				<button onclick="stopSound()">Stop</button>
-		        <button onclick="widenFilt()">Q+</button>
-		        <button onclick="narrowFilt()">Q-</button>
-				<button onclick="raiseFilt()">F+</button>
-				<button onclick="lowerFilt()">F-</button>
-		</div>
-		<div class="low">false</div>
-		<div class="mid">false</div>
-		<div class="high">false</div>
 	</body>
 </html>

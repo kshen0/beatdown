@@ -1,6 +1,47 @@
-body, html {
-	color: white;
-}
 .hidden {
 	display: none;
+}
+
+.loading {
+	width: 1400px;
+	min-height: 600px;
+	z-index: 50;
+	display: none;
+	background-color: black;
+	position: absolute;
+	opacity: .6;
+}
+
+.loading img {
+	padding: 295px 670px 0 678px;
+	width: 43px;
+	position: relative;
+}
+
+#buttonbox {
+	width: 100px;
+	float: right;
+}
+
+#buttonbox button {
+	float: right;
+	width: 80px;
+}
+
+#padder-left {
+	width: 250px;
+}
+
+#info {
+	width: 850px;
+}
+
+.container div {
+	float: left;
+}
+
+.container {
+	margin: 0 auto;
+	width: 1400px;
+	padding: 50px 0 0 0;
 }

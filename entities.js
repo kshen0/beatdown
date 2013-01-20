@@ -158,6 +158,7 @@ var lowOn = false;
 var midOn = false;
 var highOn = false;
 
+var lastTimeInterval; 
 /*-------------------
 a player entity
 -------------------------------- */
@@ -180,6 +181,7 @@ var PlayerEntity = me.ObjectEntity.extend({
 
         this.type = me.game.PLAYER;
  
+        lastTimeInterval = me.timer.getTime();
         // set the display to follow our position on both axis
         //me.game.viewport.follow(this.pos, me.game.viewport.AXIS.BOTH);
  
@@ -193,8 +195,13 @@ var PlayerEntity = me.ObjectEntity.extend({
  
     ------ */
     update: function() {
-        console.log(me.timer.getTime());
-        checkSpawns();
+        var currentTime = me.timer.getTime();
+
+        // enough time has passed; we can spawn
+        if(currentTime - lastTimeInterval> 100) {
+            lastTimeInterval = currentTime;
+            checkSpawns();
+        }
 
         if(poweredUp == true) {
 
@@ -404,7 +411,7 @@ var PlayerEntity = me.ObjectEntity.extend({
         // spawn high if needed 
         if(high != 'false') {
             if(highOn == false) {
-                spawnMultipleEnemies(2, 1);
+                spawnMultipleEnemies(1, 1);
                 highOn = true;
                 return;
             }
@@ -418,7 +425,7 @@ var PlayerEntity = me.ObjectEntity.extend({
         // spawn mid if needed 
         if(mid != 'false') {
             if(midOn == false) {
-                spawnMultipleEnemies(1, 2);
+                spawnMultipleEnemies(3, 1);
                 midOn = true;
                 return;
             }
@@ -431,7 +438,7 @@ var PlayerEntity = me.ObjectEntity.extend({
 
         if(low != 'false') {
             if(lowOn == false) {
-                spawnMultipleEnemies(4, 3);
+                spawnMultipleEnemies(2, 1);
                 lowOn = true;
                 return;
             }
@@ -442,7 +449,6 @@ var PlayerEntity = me.ObjectEntity.extend({
                 console.log("false");
             }
         }
-
 
     }
 
