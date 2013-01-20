@@ -4,7 +4,7 @@
 		<title>Beatdown</title>
 	</head>
 	<body bgcolor="black">
-		<div id="info" style="width: 640px;">
+		<div id="info" style="width: 850px; float:left;">
 			<div id="jsapp">
 				<font color="#FFFFFF", style="position: absolute; font-size: 10px; font-family: Courier New">
 					<span id="framecounter">(0/0 fps)</span>
@@ -14,15 +14,18 @@
 				<script type="text/javascript" src="main.js"></script>
 			</div>
 		</div>
-		<script type="text/javascript" src="jquery-1.9.0.min.js"></script>  
-		<canvas id="canvas" width="250" height="130" style="display: block;"></canvas>
-		<script type="text/javascript" src="audioProcess.js"></script>
-		<button onclick="startSound()">Play</button>
-		<button onclick="stopSound()">Stop</button>
-        <button onclick="widenFilt()">Q+</button>
-        <button onclick="narrowFilt()">Q-</button>
+		<div style="float:left;">
+				<script type="text/javascript" src="jquery-1.9.0.min.js"></script>  
+				<canvas id="canvas" width="250" height="550" style="display: block;"></canvas>
+				<script type="text/javascript" src="audioProcess.js"></script>
+				<p>Volume visualizer</p>
+				<button onclick="startSound()">Play</button>
+				<button onclick="stopSound()">Stop</button>
+		        <button onclick="widenFilt()">Q+</button>
+		        <button onclick="narrowFilt()">Q-</button>
 				<button onclick="raiseFilt()">F+</button>
 				<button onclick="lowerFilt()">F-</button>
+		</div>
 		<div class="low">false</div>
 		<p id="mid"></p>
 		<p id="high"></p>
