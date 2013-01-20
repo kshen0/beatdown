@@ -30,27 +30,45 @@ var g_resources = [
 },
 // the spinning coin spritesheet
 {
-    name: "spinning_coin_gold",
+    name: "powerups",
     type: "image",
-    src: "data/sprite/spinning_coin_gold.png"
+    src: "data/sprite/powerups.png"
 },
 // our enemty entity
 {
-    name: "wheelie_right",
+    name: "enemy1",
     type: "image",
-    src: "data/sprite/wheelie_right.png"
+    src: "data/sprite/enemy1.png"
 },
 // bullet entity
 {
 	name: "bullet_right",
 	type: "image",
-	src: "data/sprite/bullet.png"
+	src: "data/sprite/bullet_right.png"
+},
+// bullet entity
+{
+	name: "bullet_left",
+	type: "image",
+	src: "data/sprite/bullet_left.png"
+},
+// bullet entity
+{
+	name: "bullet_up",
+	type: "image",
+	src: "data/sprite/bullet_up.png"
+},
+// bullet entity
+{
+	name: "bullet_down",
+	type: "image",
+	src: "data/sprite/bullet_down.png"
 },
 // game font
 {
     name: "32x32_font",
     type: "image",
-    src: "data/sprite/32x32_font.png"
+    src: "data/sprite/bebas_font.png"
 },
 
 // title screen
@@ -132,13 +150,18 @@ var jsApp = {
    // Spawn keys
    me.input.bindKey(me.input.KEY.Q, "spawn", true);
    me.input.bindKey(me.input.KEY.E, "spawnEnemy", true);
+   me.input.bindKey(me.input.KEY.R, "spawnMultipleEnemies", true);
    // Combat keys
    me.input.bindKey(me.input.KEY.P, "shoot");
    me.input.bindKey(me.input.KEY.O, "melee");
+   me.input.bindKey(me.input.KEY.I, "shootup");
+   me.input.bindKey(me.input.KEY.J, "shootleft");
+   me.input.bindKey(me.input.KEY.K, "shootdown");
+   me.input.bindKey(me.input.KEY.L, "shootright");
    //me.input.bindKey(me.input.KEY.X,     "jump", true);
 
    //CHEATS
-   me.input.bindKey(me.input.KEY.I,  "i");
+   //me.input.bindKey(me.input.KEY.I,  "i");
    me.input.bindKey(me.input.KEY.U,  "u");
       
    // start the game
@@ -148,6 +171,8 @@ var jsApp = {
 
    // start the game
    me.state.change(me.state.MENU);
+
+   //me.debug.renderHitBox = true;
 }
  
 };
@@ -167,6 +192,7 @@ var PlayScreen = me.ScreenObject.extend({
 
         // add a health HUD item
         me.game.HUD.addItem("health", new HealthObject(300,10));
+        me.game.HUD.updateItemValue("health", 5);
 
         //make sure things in right order
         me.game.sort();
@@ -193,7 +219,7 @@ function onTimerTick() {
     if (me.input.isKeyPressed('spawn')) {
     	//me.entityPool.add("CoinEntity2", CoinEntity);
     	//me.state.change(me.state.PAUSE); 
-    	  var newEnemy = new CoinEntity(2, 2, {image: 'spinning_coin_gold', spritewidth: 32, spriteheight: 32});
+    	  var newEnemy = new CoinEntity(2, 2, {image: 'powerups', spritewidth: 32, spriteheight: 32});
     	  me.game.add(newEnemy, this.z);
     	  //me.game.add(new EnemyEntity(5, 5,{}), 3);
     	  me.game.sort();
@@ -211,12 +237,18 @@ Functions and js junk
 // keep in mind, if collecting an item and updating HUD, need to
 // set this.collidable = false (for hte object you're collecting)
 // and also me.game.remove(this)
-function incScore() {
-    me.game.HUD.updateItemValue("score", 1000);
+function incScore(numPoints) {
+    me.game.HUD.updateItemValue("score", numPoints);
 }
 
 function decHealth() {
-    me.game.HUD.updateItemValue("health", -100);
+  if (!isFlickering) {
+    me.game.HUD.updateItemValue("health", -1);
+    isFlickering = true;
+    window.setTimeout(function() {isFlickering = false}, 3000);
+
+  } 
+  
 }
 /*
 //MAIN GAME LOOP

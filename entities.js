@@ -130,9 +130,25 @@ var HealthObject = me.HUD_Item.extend({
 
 });
 
+
+/*---------------
+   Global vars
+   ------------*/
 var playerX = 0;
 var playerY = 0;
 var playerD = 'e';
+var poweredUp = false;
+var powerUpCoolDown = 0;
+var powerUpType = 0;
+//0 = fast moving
+//1 = rapid fire
+//2 = triple fire
+//3 = SUPERNOVA
+var coolDown = 0;
+// inc the score by certain amount everytime this hits a threshold, then reset
+var scoreIncCount = 0;
+// flickering bool since is flickering won't work for me
+var isFlickering = false;
 
 /*-------------------
 a player entity
@@ -167,59 +183,127 @@ var PlayerEntity = me.ObjectEntity.extend({
  
     ------ */
     update: function() {
- 
-        if (me.input.isKeyPressed('left')) {
-            // flip the sprite on horizontal axis
-            this.flipX(true);
-            updatePlayerDirection('w');
-            console.log(playerD);
-            // update the entity velocity
-            this.vel.x -= this.accel.x * me.timer.tick;
-        } else if (me.input.isKeyPressed('right')) {
-            // unflip the sprite
-            this.flipX(false);
-            updatePlayerDirection('e');
-            // update the entity velocity
-            this.vel.x += this.accel.x * me.timer.tick;
-        }
-        else if (me.input.isKeyPressed('up')) {
-            // update the entity velocity
-            this.vel.y -= this.accel.y * me.timer.tick;
-            updatePlayerDirection('n');
-        }  
-        else if (me.input.isKeyPressed('down')) {
-            // update the entity velocity
-            this.vel.y += this.accel.y * me.timer.tick;
-            updatePlayerDirection('s');
-        }  
-        else {
-            this.vel.x = 0;
-            this.vel.y = 0;
+        if(poweredUp == true) {
+
         }
 
-        // Combat
-        // Shoot or melee regardless of movement
-        if(me.input.isKeyPressed('shoot')) {
-            console.log("Bullet fired");
-            var shot = new BulletEntity(this.pos.x, this.pos.y, { image: 'bullet_right', 
-                spritewidth: 32, spriteheight: 32, width: 1, height: 1});
-            me.game.add(shot, this.z);
-            me.game.sort();
-            // Play animation?
-        }
-        else if(me.input.isKeyPressed('melee')) {
-            console.log("MELEE");
-            // Play melee animation
-            // Test melee
-        }
         else {
+        
+            if (me.input.isKeyPressed('left')) {
+                // flip the sprite on horizontal axis
+                this.flipX(true);
+                updatePlayerDirection('w');
+                console.log(playerD);
+                // update the entity velocity
+                this.vel.x -= this.accel.x * me.timer.tick;
+            } else if (me.input.isKeyPressed('right')) {
+                // unflip the sprite
+                this.flipX(false);
+                updatePlayerDirection('e');
+                // update the entity velocity
+                this.vel.x += this.accel.x * me.timer.tick;
+            }
+            else if (me.input.isKeyPressed('up')) {
+                // update the entity velocity
+                this.vel.y -= this.accel.y * me.timer.tick;
+                updatePlayerDirection('n');
+            }  
+            else if (me.input.isKeyPressed('down')) {
+                // update the entity velocity
+                this.vel.y += this.accel.y * me.timer.tick;
+                updatePlayerDirection('s');
+            }  
+            else {
+                this.vel.x = 0;
+                this.vel.y = 0;
+            }
 
+            // Combat
+            if(coolDown == 0) {
+                // Shoot or melee regardless of movement
+                if(me.input.isKeyPressed('shoot')) {
+                    coolDown = 15;
+                    console.log("Bullet fired");
+                    
+                    if(playerD == 'n') {
+                        var shot = new BulletEntity(this.pos.x, this.pos.y, { image: 'bullet_up', 
+                        spritewidth: 32, spriteheight: 32, width: 1, height: 1, ijkl: false});
+                    }
+                    else if(playerD == 's') {
+                        var shot = new BulletEntity(this.pos.x, this.pos.y, { image: 'bullet_down', 
+                        spritewidth: 32, spriteheight: 32, width: 1, height: 1, ijkl: false});
+                    }
+                    else if(playerD == 'w') {
+                        var shot = new BulletEntity(this.pos.x, this.pos.y, { image: 'bullet_left', 
+                        spritewidth: 32, spriteheight: 32, width: 1, height: 1, ijkl: false});
+                    }
+                    else {
+                        var shot = new BulletEntity(this.pos.x, this.pos.y, { image: 'bullet_right', 
+                        spritewidth: 32, spriteheight: 32, width: 1, height: 1, ijkl: false});
+                    }
+                    /*
+                    var shot = new BulletEntity(this.pos.x, this.pos.y, { image: 'bullet_right', 
+                        spritewidth: 32, spriteheight: 32, width: 1, height: 1});
+                    */
+                    me.game.add(shot, this.z);
+                    me.game.sort();
+                    // Play animation?
+                }
+                else if(me.input.isKeyPressed('melee')) {
+                    coolDown = 15;
+                    console.log("MELEE");
+                    // Play melee animation
+                    // Test melee
+                }
+                else if(me.input.isKeyPressed('shootup')) {
+                    coolDown = 15;
+                    var shot = new BulletEntity(this.pos.x, this.pos.y, { image: 'bullet_up', 
+                        spritewidth: 32, spriteheight: 32, width: 1, height: 1, ijkl: true, direc: 'up'});
+                    me.game.add(shot, this.z);
+                    me.game.sort();
+                }
+                else if(me.input.isKeyPressed('shootleft')) {
+                    coolDown = 15;
+                    var shot = new BulletEntity(this.pos.x, this.pos.y, { image: 'bullet_left', 
+                        spritewidth: 32, spriteheight: 32, width: 1, height: 1, ijkl: true, direc: 'left'});
+                    me.game.add(shot, this.z);
+                    me.game.sort();
+                }
+                else if(me.input.isKeyPressed('shootdown')) {
+                    coolDown = 15;
+                    var shot = new BulletEntity(this.pos.x, this.pos.y, { image: 'bullet_down', 
+                        spritewidth: 32, spriteheight: 32, width: 1, height: 1, ijkl: true, direc: 'down'});
+                    me.game.add(shot, this.z);
+                    me.game.sort();
+                }
+                else if(me.input.isKeyPressed('shootright')) {
+                    coolDown = 15;
+                    var shot = new BulletEntity(this.pos.x, this.pos.y, { image: 'bullet_right', 
+                        spritewidth: 32, spriteheight: 32, width: 1, height: 1, ijkl: true, direc: 'right'});
+                    me.game.add(shot, this.z);
+                    me.game.sort();
+                }
+                else {
+
+                }
+            } 
+        }
+
+        if(coolDown != 0) {
+            coolDown = coolDown - 1;
+        }
+
+        //if(Math.random() > 0.5) {
+        if(Math.random() > 0.9993) {
+            randX = Math.floor((Math.random()*625)+80); 
+            randY = Math.floor((Math.random()*350)+80); 
+            spawnCoin(randX, randY, this.z);
         }
 
         if (me.input.isKeyPressed('spawn')) {
             spawnCoin(this.pos.x, this.pos.y, this.z);
             /*
-            var newCoin = new CoinEntity(this.pos.x, this.pos.y, {image: 'spinning_coin_gold', spritewidth: 32, spriteheight: 32});
+            var newCoin = new CoinEntity(this.pos.x, this.pos.y, {image: 'powerups', spritewidth: 32, spriteheight: 32});
           me.game.add(newCoin, this.z);
           //me.game.add(new EnemyEntity(5, 5,{}), 3);
           me.game.sort();
@@ -227,6 +311,20 @@ var PlayerEntity = me.ObjectEntity.extend({
          } 
          if (me.input.isKeyPressed('spawnEnemy')) {
             spawnEnemy(this.pos.x, this.pos.y, this.z, 'Wheelie');
+         }
+
+         // key press for spawning multiple enemies
+         if (me.input.isKeyPressed('spawnMultipleEnemies')) {
+            //spawn given number of enemies in N S E or W directions
+            var randSpawnPoint = Math.floor((Math.random()*4)+1);
+            spawnMultipleEnemies(randSpawnPoint,6);
+         }
+
+         // inc the score for the player by 100 for stayin aliveeee
+         scoreIncCount++;
+         if (scoreIncCount == 100) {
+            scoreIncCount = 0;
+            incScore(100);
          }
         /*
         if (me.input.isKeyPressed('jump')) {
@@ -291,7 +389,7 @@ var PlayerEntity = me.ObjectEntity.extend({
          z = z-buffer depth
  ----------------*/ 
 function spawnCoin(x, y, z){
-    var newCoin = new CoinEntity(x, y, {image: 'spinning_coin_gold', spritewidth: 32, spriteheight: 32});
+    var newCoin = new CoinEntity(x, y, {image: 'powerups', spritewidth: 32, spriteheight: 32});
           me.game.add(newCoin, z);
           me.game.sort();
 }
@@ -304,10 +402,59 @@ function spawnCoin(x, y, z){
  ----------------*/ 
  //Add horde spawn (with random position offset)
 function spawnEnemy(x, y, z, type){
-    var newEnemy = new EnemyEntity(x, y, {image: 'wheelie_right', spritewidth: 64,
-     spriteheight: 64, width: 4, height: 2});
+    var newEnemy = new EnemyEntity(x, y, {image: 'enemy1', spritewidth: 32,
+     spriteheight: 32, width: 1, height: 1});
           me.game.add(newEnemy, z);
           me.game.sort();
+}
+
+/*-----------------
+spawnEnemy wrapper that spawns multiple enemies at once
+Params: location = 1, 2, 3, or 4 representing N S E or W 
+        numEnemieS = number to spawn
+-----------------------*/
+function spawnMultipleEnemies(location, numEnemies) {
+     
+    for (var i = 0; i < numEnemies; i++) {
+        var randOffsetX = Math.floor((Math.random()*60)+1);
+        var randOffsetY = Math.floor((Math.random()*60)+1);
+        var randDirection = Math.floor((Math.random()*4)+1);
+        var zIndex = 20;
+        var spawnX = 0;
+        var spawnY = 0;
+
+        if (location == 1) {
+            // north
+            spawnX = 450;
+            spawnY = 70;
+        } else if (location == 2) {
+            // south
+            spawnX = 450;
+            spawnY = 420;
+        } else if (location == 3) {
+            // east
+            spawnX = 750;
+            spawnY = 240;
+        } else if (location == 4) {
+            // west
+            spawnX = 120;
+            spawnY = 240;
+        }
+        
+
+
+        if (randDirection == 1) {
+           spawnEnemy(spawnX-randOffsetX, spawnY-randOffsetY, zIndex, 'enemy1');
+        } else if (randDirection == 2) {
+           spawnEnemy(spawnX-randOffsetX, spawnY+randOffsetY, zIndex, 'enemy1');
+        } else if (randDirection == 3) {
+           spawnEnemy(spawnX+randOffsetX, spawnY-randOffsetY, zIndex, 'enemy1');
+        } else if (randDirection == 4) {
+           spawnEnemy(spawnX+randOffsetX, spawnY+randOffsetY, zIndex, 'enemy1');
+        } 
+
+    }
+
 }
 
 /*----------------
@@ -317,7 +464,7 @@ var CoinEntity = me.CollectableEntity.extend({
     // extending the init function is not mandatory
     // unless you need to add some extra initialization
     init: function(x, y, settings) {
-        settings.image = "spinning_coin_gold";
+        settings.image = "powerups";
         settings.spritewidth = 32;
         settings.spriteheight = 32;
         // call the parent constructor
@@ -328,9 +475,30 @@ var CoinEntity = me.CollectableEntity.extend({
  
     // this function is called by the engine, when
     // an object is touched by something (here collected)
-    onCollision: function() {
-        // do something when collected
-        incScore();
+    // check for collision
+    /*
+     update: function () {
+        var res = me.game.collide(this);
+        if (res) {
+            if (res.obj.type == me.game.PLAYER) {
+                // make sure it cannot be collected "again"
+                this.collidable = false;
+                // remove it
+                me.game.remove(this);
+                poweredUp = true;
+            }
+        }
+    }*/
+        
+    onCollision: function(res, obj) {
+        if(obj.type == me.game.PLAYER) {
+        // make sure it cannot be collected "again"
+        this.collidable = false;
+        // remove it
+        me.game.remove(this);
+        incScore(1000);
+        //power
+        }
     }
  
 });
@@ -352,17 +520,50 @@ var BulletEntity = me.ObjectEntity.extend({
         this.collidable = true;
 
         // Change velocity based on direction user is facing
-        if(playerD == 'n') {
-            this.vel.y = -8;
+        if(settings.ijkl == false) {
+            if(playerD == 'n') {
+                this.vel.y = -8;
+            }
+            else if(playerD == 's') {
+                this.vel.y = 8;
+            }
+            else if(playerD == 'w') {
+                this.vel.x = -8;
+            }
+            else {
+                this.vel.x = 8;
+            }
         }
-        else if(playerD == 's') {
-            this.vel.y = 8;
-        }
-        else if(playerD == 'w') {
-            this.vel.x = -8;
+        // adjust the bounding box according to the bullet direction
+        else if(playerD == 'n' || playerD == 's') {
+            if(settings.direc == 'up') {
+                this.vel.y = -8;
+            }
+            else if(settings.direc == 'down') {
+                this.vel.y = 8;
+            }
+            else if(settings.direc == 'left') {
+                this.vel.x = -8;
+            }
+            else {
+                this.vel.x = 8;
+            }
+            this.updateColRect(8, 16, -1, 0);
         }
         else {
-            this.vel.x = 8;
+            if(settings.direc == 'up') {
+                this.vel.y = -8;
+            }
+            else if(settings.direc == 'down') {
+                this.vel.y = 8;
+            }
+            else if(settings.direc == 'left') {
+                this.vel.x = -8;
+            }
+            else {
+                this.vel.x = 8;
+            }
+            this.updateColRect(-1, 0, 8, 16);
         }
 
     },
@@ -449,8 +650,8 @@ an enemy Entity
 var EnemyEntity = me.ObjectEntity.extend({
     init: function(x, y, settings) {
         // define this here instead of tiled
-        settings.image = "wheelie_right";
-        settings.spritewidth = 64;
+        settings.image = "enemy1";
+        settings.spritewidth = 32;
  
         // call the parent constructor
         this.parent(x, y, settings);
