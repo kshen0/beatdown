@@ -808,14 +808,17 @@ function checkSpawns() {
             if(midOn == false) {
                 ran = Math.random();
                 if(ran > 0.7) { 
-                    spawnMultipleEnemies(3, 1, 0, 0);
+                    num = Math.floor((Math.random()*3)+1); 
+                    spawnMultipleEnemies(3, num, 0, 0);
                 }
                 else if(ran > 0.4) {
-                    spawnMultipleEnemies(4, 1, 0, 0);
+                    num = Math.floor((Math.random()*2)+1); 
+                    spawnMultipleEnemies(4, num, 0, 0);
                 }
                 else {
                     loc = Math.floor((Math.random()*2)+1); 
-                    spawnMultipleEnemies(loc, 1, 0, 0);
+                    num = Math.floor((Math.random()*2)+1); 
+                    spawnMultipleEnemies(loc, num, 0, 0);
                 }
                 midOn = true;
                 return;
@@ -830,9 +833,11 @@ function checkSpawns() {
         if(low != 'false') {
             if(lowOn == false) {
                 if(Math.random() > 0.5) { 
+                    //num = Math.floor((Math.random()*2)+1); 
                     spawnMultipleEnemies(2, 0, 1, 0);
                 }
                 else {
+                    //num = Math.floor((Math.random()*2)+1); 
                     loc = Math.floor((Math.random()*4)+1); 
                     spawnMultipleEnemies(loc, 0, 1, 0);
                 }
