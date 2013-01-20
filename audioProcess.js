@@ -266,11 +266,7 @@ javascriptNode.onaudioprocess = function() {
 		ctx.fillRect(70, 130-average, 50, 130);
 		ctx.fillRect(125, 130-average2, 50, 130);
 		
-		ctx.fillStyle = "rgb(214, 214, 214)";
-		if (average > volumecurrent*1.2 || average2 > volumecurrent*1.2) {
-			//ctx.fillRect(70, 10, 20, 20);
-		}
-		
+		//console.log("HA: " + Math.round(highaverage) + ", HC: " + Math.round(highcurrent*hightolerance) + " | MA: " + Math.round(midaverage) + ", MC: " + Math.round(midcurrent*midtolerance) + " | LA: " + Math.round(lowaverage) + ", LC: " + Math.round(lowcurrent*lowtolerance));
 		
 		ctx.font = "12pt Calibri";
 		ctx.fillStyle = "rgb(255, 255, 255)";

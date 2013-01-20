@@ -158,6 +158,9 @@ var jsApp = {
    me.input.bindKey(me.input.KEY.J, "shootleft");
    me.input.bindKey(me.input.KEY.K, "shootdown");
    me.input.bindKey(me.input.KEY.L, "shootright");
+
+   //testing canvas access
+   me.input.bindKey(me.input.KEY.M, "flash");
    //me.input.bindKey(me.input.KEY.X,     "jump", true);
 
    //CHEATS
