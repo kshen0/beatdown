@@ -420,7 +420,9 @@ javascriptNode.onaudioprocess = function() {
 		else {
 			$('div.high').text(false);
 		}
-
+		$('#highval').text(Math.round(highavgtotal));
+		$('#midval').text(Math.round(midavgtotal));
+		$('#lowval').text(Math.round(lowavgtotal));
 		if(isLoading) {	
 			$('div.loading').css('display', 'none');
 			isLoading = false;

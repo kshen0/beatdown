@@ -4,10 +4,10 @@
   <property name="background_color" value="#808080"/>
  </properties>
  <tileset firstgid="1" name="area01_level_tiles" tilewidth="32" tileheight="32">
-  <image source="../../tutorial_template/data/area01_tileset/area01_level_tiles.png" width="640" height="241"/>
+  <image source="../../../../Spring 2013/PennApps/tutorial_template/data/area01_tileset/area01_level_tiles.png" width="640" height="241"/>
  </tileset>
  <tileset firstgid="141" name="metatiles32x32" tilewidth="32" tileheight="32">
-  <image source="../../tutorial_template/data/area01_tileset/metatiles32x32.png" width="160" height="32"/>
+  <image source="../../../../Spring 2013/PennApps/tutorial_template/data/area01_tileset/metatiles32x32.png" width="160" height="32"/>
   <tile id="0">
    <properties>
     <property name="type" value="solid"/>
@@ -20,7 +20,7 @@
   </tile>
  </tileset>
  <tileset firstgid="146" name="area01_tiles" tilewidth="32" tileheight="32">
-  <image source="area01_tileset/area01_tiles.png" width="32" height="32"/>
+  <image source="../../../../Spring 2013/PennApps/beatdown_game/data/area01_tileset/area01_tiles.png" width="32" height="32"/>
  </tileset>
  <layer name="parallax_layer_1" width="26" height="20" visible="0">
   <properties>

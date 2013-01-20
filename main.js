@@ -40,6 +40,18 @@ var g_resources = [
     type: "image",
     src: "data/sprite/enemy1.png"
 },
+// our LOW enemy entity
+{
+    name: "enemy2",
+    type: "image",
+    src: "data/sprite/enemy2.png"
+},
+// our HIGH enemy entity
+{
+    name: "enemy3",
+    type: "image",
+    src: "data/sprite/enemy3.png"
+},
 // bullet entity
 {
 	name: "bullet_right",
@@ -78,6 +90,13 @@ var g_resources = [
     src: "data/GUI/title_screen.png"
 
 },
+// GAME OVER screen
+{
+    name: "gameover_screen",
+    type: "image",
+    src: "data/GUI/gameover.jpg"
+
+},
 //cling audio
 {
     name: "cling",
@@ -86,12 +105,19 @@ var g_resources = [
     channel: 2
 },
 //BUY1
-/*{
+{
     name: "BUY1",
     type: "audio",
     src: "data/audio/",
     //channel: 2
-}*/];
+},
+//Power up
+{
+    name: "power_up",
+    type: "audio",
+    src: "data/audio/"
+    //channel: 2
+}];
  
 var jsApp = {
     /* ---
@@ -132,7 +158,7 @@ var jsApp = {
    // set the "Play/Ingame" Screen Object
    me.state.set(me.state.MENU, new TitleScreen());
    me.state.set(me.state.PLAY, new PlayScreen());
-
+   me.state.set(me.state.GAMEOVER, new GameOverScreen());
    //transition
    me.state.transition("fade", "#FFFFFF", 250);
      
@@ -152,16 +178,14 @@ var jsApp = {
    me.input.bindKey(me.input.KEY.E, "spawnEnemy", true);
    me.input.bindKey(me.input.KEY.R, "spawnMultipleEnemies", true);
    // Combat keys
-   me.input.bindKey(me.input.KEY.P, "shoot");
-   me.input.bindKey(me.input.KEY.O, "melee");
+   //me.input.bindKey(me.input.KEY.P, "shoot");
+   //me.input.bindKey(me.input.KEY.O, "melee");
    me.input.bindKey(me.input.KEY.I, "shootup");
    me.input.bindKey(me.input.KEY.J, "shootleft");
    me.input.bindKey(me.input.KEY.K, "shootdown");
    me.input.bindKey(me.input.KEY.L, "shootright");
-
-   //testing canvas access
-   me.input.bindKey(me.input.KEY.M, "flash");
    //me.input.bindKey(me.input.KEY.X,     "jump", true);
+   me.input.bindKey(me.input.KEY.M, "pulse");
 
    //CHEATS
    //me.input.bindKey(me.input.KEY.I,  "i");
@@ -214,6 +238,21 @@ var PlayScreen = me.ScreenObject.extend({
 }
  
 });
+/*
+//MAIN GAME LOOP
+setInterval(onTimerTick, 33); // 33 milliseconds = ~ 30 frames per sec
+
+function onTimerTick() {
+    if (me.input.isKeyPressed('spawn')) {
+    	//me.entityPool.add("CoinEntity2", CoinEntity);
+    	//me.state.change(me.state.PAUSE); 
+    	  var newEnemy = new CoinEntity(2, 2, {image: 'powerups', spritewidth: 32, spriteheight: 32});
+    	  me.game.add(newEnemy, this.z);
+    	  //me.game.add(new EnemyEntity(5, 5,{}), 3);
+    	  me.game.sort();
+    	  console.log("fuck yea");
+    } 
+}*/
 
 /*----------------------------------------
 
@@ -230,13 +269,58 @@ function incScore(numPoints) {
 }
 
 function decHealth() {
+	console.log(isFlickering);
   if (!isFlickering) {
     me.game.HUD.updateItemValue("health", -1);
+     if (me.game.HUD.getItemValue("health") <= 0) {
+      me.state.change(me.state.GAMEOVER);
+    }
     isFlickering = true;
-    window.setTimeout(function() {isFlickering = false}, 3000);
+    window.setTimeout(function() {isFlickering = false}, 1000);
 
   } 
+  
 }
+/*
+//MAIN GAME LOOP
+setInterval(onTimerTick, 33); // 33 milliseconds = ~ 30 frames per sec
+
+function onTimerTick() {
+    if (true) {
+        // maybe check to see what type of thing to spawn based on intensity
+        //set bool to false and repeat
+    }
+
+    if (me.input.isKeyPressed('i')) {
+        incScore();
+    }
+
+     if (me.input.isKeyPressed('u')) {
+        decHealth();
+    }
+
+    if (me.input.isKeyPressed('left')) {
+
+    	  me.game.add(new EnemyEntity(5, 5,{}), 10);
+          
+    } 
+}
+
+var songList = new Array();
+songList[0] = "cling";
+songList[1] = "BUY1";
+songNum = 0;
+setInterval(switchSong, 2000);
+function switchSong() {
+    if (songNum == 0) {
+        me.audio.play(songList[0]);
+        songNum++;
+    } else if (songNum == 1) {
+        me.audio.play(songList[1]);
+        songNum--;
+    }
+} */
+
  
 //bootstrap :)
 window.onReady(function() {
