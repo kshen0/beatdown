@@ -80,7 +80,7 @@ gradient.addColorStop(0,'#ffffff');
 
 // load sound
 setupAudioNodes();
-loadSound("Our Life.mp3");
+loadSound("whenshort.mp3");
 
 
 function setupAudioNodes() {
@@ -405,6 +405,10 @@ javascriptNode.onaudioprocess = function() {
 			ctx.lineWidth = 20;
 			ctx.strokeStyle = "rgb(184, 239, 64)";
 			ctx.stroke();
+			$('div.mid').text((midaverage + midaverage2)/2);
+		}
+		else {
+			$('div.mid').text(false);
 		}
 		
 		ctx.fillStyle = "rgb(27, 201, 224)";
@@ -414,6 +418,10 @@ javascriptNode.onaudioprocess = function() {
 			ctx.lineWidth = 20;
 			ctx.strokeStyle = "rgb(47, 221, 244)";
 			ctx.stroke();
+			$('div.high').text((highaverage + highaverage2)/2);
+		}
+		else {
+			$('div.high').text(false);
 		}
 		
 	}

@@ -155,6 +155,8 @@ var scoreIncCount = 0;
 var isFlickering = false;
 
 var lowOn = false;
+var midOn = false;
+var highOn = false;
 
 /*-------------------
 a player entity
@@ -183,26 +185,16 @@ var PlayerEntity = me.ObjectEntity.extend({
  
     },
  
+
+   
     /* -----
  
     update the player pos
  
     ------ */
     update: function() {
-        var low = $('div.low').text();
-        if(low != 'false') {
-            if(lowOn == false) {
-                console.log("spawn");
-                spawnEnemy(200, 200, 20, 'Wheelie');
-                lowOn = true;
-            }
-        }
-        else {
-            if(lowOn == true) {
-                lowOn = false;
-                console.log("false");
-            }
-        }
+        console.log(me.timer.getTime());
+        checkSpawns();
 
         if(poweredUp == true) {
 
@@ -403,6 +395,56 @@ var PlayerEntity = me.ObjectEntity.extend({
  
 });
 
+ function checkSpawns() {
+        // spawn low if needed 
+        var low = $('div.low').text();
+        var mid = $('div.mid').text();
+        var high = $('div.high').text();
+
+        // spawn high if needed 
+        if(high != 'false') {
+            if(highOn == false) {
+                spawnMultipleEnemies(2, 1);
+                highOn = true;
+                return;
+            }
+        }
+        else {
+            if(highOn == true) {
+                highOn = false;
+            }
+        }
+
+        // spawn mid if needed 
+        if(mid != 'false') {
+            if(midOn == false) {
+                spawnMultipleEnemies(1, 2);
+                midOn = true;
+                return;
+            }
+        }
+        else {
+            if(midOn == true) {
+                midOn = false;
+            }
+        }
+
+        if(low != 'false') {
+            if(lowOn == false) {
+                spawnMultipleEnemies(4, 3);
+                lowOn = true;
+                return;
+            }
+        }
+        else {
+            if(lowOn == true) {
+                lowOn = false;
+                console.log("false");
+            }
+        }
+
+
+    }
 
 /*----------------
  Spawn new object
