@@ -9,13 +9,14 @@
 				<font color="#FFFFFF", style="position: absolute; font-size: 10px; font-family: Courier New">
 					<span id="framecounter">(0/0 fps)</span>
 				</font>
-				<script type="text/javascript" src="lib/melonJS-0.9.4-min.js"></script>
+				<script type="text/javascript" src="lib/melonJS-0.9.4.js"></script>
 				<script type="text/javascript" src="entities.js"></script>
 				<script type="text/javascript" src="main.js"></script>
 			</div>
 		</div>
 		<script type="text/javascript" src="jquery-1.9.0.min.js"></script>  
-
+		<canvas id="canvas" width="250" height="130" style="display: block;">
+		<script type="text/javascript" src="audioProcess.js"></script>
 		<p>Volume visualizer</p>
 		<button onclick="startSound()">Play</button>
 		<button onclick="stopSound()">Stop</button>
@@ -23,6 +24,5 @@
         <button onclick="narrowFilt()">Q-</button>
 				<button onclick="raiseFilt()">F+</button>
 				<button onclick="lowerFilt()">F-</button>
-		<canvas id="canvas" width="250" height="130" style="display: block;">
 	</body>
 </html>
