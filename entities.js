@@ -917,7 +917,15 @@ function checkSpawns() {
         // spawn high if needed 
         if(high != 'false') {
             if(highOn == false) {
-                spawnMultipleEnemies(1, 1);
+                if(Math.random() > 0.5) { 
+                    num = Math.floor((Math.random()*3)+1); 
+                    spawnMultipleEnemies(1, 0, 0, num);
+                }
+                else {
+                    num = Math.floor((Math.random()*3)+1); 
+                    loc = Math.floor((Math.random()*3)+1); 
+                    spawnMultipleEnemies(loc, 0, 0, num);
+                }
                 highOn = true;
                 return;
             }
@@ -931,7 +939,17 @@ function checkSpawns() {
         // spawn mid if needed 
         if(mid != 'false') {
             if(midOn == false) {
-                spawnMultipleEnemies(3, 1);
+                ran = Math.random();
+                if(ran > 0.7) { 
+                    spawnMultipleEnemies(3, 1, 0, 0);
+                }
+                else if(ran > 0.4) {
+                    spawnMultipleEnemies(4, 1, 0, 0);
+                }
+                else {
+                    loc = Math.floor((Math.random()*2)+1); 
+                    spawnMultipleEnemies(loc, 1, 0, 0);
+                }
                 midOn = true;
                 return;
             }
@@ -944,7 +962,7 @@ function checkSpawns() {
 
         if(low != 'false') {
             if(lowOn == false) {
-                spawnMultipleEnemies(2, 1);
+                spawnMultipleEnemies(2, 0, 1, 0);
                 lowOn = true;
                 return;
             }

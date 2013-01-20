@@ -94,7 +94,7 @@ var g_resources = [
 {
     name: "gameover_screen",
     type: "image",
-    src: "data/GUI/gameover.jpg"
+    src: "data/GUI/gameover.png"
 
 },
 //cling audio
